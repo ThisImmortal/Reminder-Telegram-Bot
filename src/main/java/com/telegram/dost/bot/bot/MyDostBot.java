@@ -77,7 +77,7 @@ public class MyDostBot extends TelegramLongPollingBot {
             }
 
             userDataCache.setUsersCurrentBotState(userId, botState);
-            replyMessage = botStateContext.defineMessageService(botState, update);
+            replyMessage = botStateContext.defineReplyService(botState, update);
 
             try {
                 execute(replyMessage);

@@ -17,7 +17,7 @@ public class BotStateContext {
         messageServices.forEach(messageService -> this.messageServices.put(messageService.getMessageServiceName(), messageService));
     }
 
-    public SendMessage defineMessageService(BotState currentBotState, Update update){
+    public SendMessage defineReplyService(BotState currentBotState, Update update){
 
         ReplyMessageHandler replyMessageHandler = messageServices.get(currentBotState);
         SendMessage message = replyMessageHandler.createReplyMessage(update);

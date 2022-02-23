@@ -25,8 +25,8 @@ public class ParseService {
 
 
         if (matcher.matches()){
-            String matcherGroup = matcher.group(1);
-            if (isShort(matcherGroup)){
+            String matcherGroup1 = matcher.group(1);
+            if (isShort(matcherGroup1)){
                 localDateTime = produceLocalDateTime(matcher);
                 parsingResult.setDateTime(localDateTime);
                 parsingResult.setReminderDescription(matcher.group(6).trim().replaceAll("\\s+", " "));
@@ -34,7 +34,8 @@ public class ParseService {
             }
             else {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-                localDateTime = LocalDateTime.parse(LocalDate.parse(matcher.group(1), formatter)+"T"+matcher.group(5));
+                LocalTime time = produceLocalTime(matcher.group(5));
+                localDateTime = LocalDateTime.parse(LocalDate.parse(matcher.group(1), formatter)+"T"+time);
                 if(localDateTime.isAfter(LocalDateTime.now())){
                     parsingResult.setDateTime(localDateTime);
                     parsingResult.setReminderDescription(matcher.group(6).trim().replaceAll("\\s+", " "));
@@ -52,12 +53,21 @@ public class ParseService {
     }
 
 
-    public boolean isShort(String matcherGroup){
+    public boolean isShort(String matcherGroup1){
         boolean isShort = false;
-        if (matcherGroup.equalsIgnoreCase("tomorrow") || matcherGroup.equalsIgnoreCase("today")){
+        if (matcherGroup1.equalsIgnoreCase("tomorrow") || matcherGroup1.equalsIgnoreCase("today")){
             isShort = true;
         }
         return isShort;
+    }
+
+    public LocalTime produceLocalTime(String matcherGroup5){
+        Character semiColon = matcherGroup5.charAt(1);
+        if(semiColon.equals(':')){
+            matcherGroup5 = '0' + matcherGroup5;
+        }
+        LocalTime time = LocalTime.parse(matcherGroup5);
+        return time;
     }
 
     public LocalDateTime produceLocalDateTime(Matcher matcher){
@@ -65,12 +75,13 @@ public class ParseService {
         LocalDateTime dateTime;
         LocalDate date = LocalDate.now();
         String gotTime = matcher.group(5);
-        Character semiColon = gotTime.charAt(1);
-        if (semiColon.equals(':')){
-            gotTime = "0" + gotTime;
-        }
 
-        LocalTime futureTime = LocalTime.parse(gotTime);
+//        Character semiColon = gotTime.charAt(1);
+//        if (semiColon.equals(':')){
+//            gotTime = "0" + gotTime;
+//        }
+
+        LocalTime futureTime = produceLocalTime(gotTime);
 
         if(matcher.group(1).equalsIgnoreCase("tomorrow")){
             date = date.plusDays(1);
