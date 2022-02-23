@@ -2,7 +2,6 @@ package com.telegram.dost.bot.bot;
 
 public enum BotState {
 
-    ENTER_LOCATION,
     REMINDER_MENU,
     HELP_MENU,
     HOW_TO_USE_BOT,

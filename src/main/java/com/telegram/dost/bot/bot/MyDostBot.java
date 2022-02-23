@@ -54,11 +54,8 @@ public class MyDostBot extends TelegramLongPollingBot {
 
             switch (messageText){
                 case "/start":
-                   botState = BotState.ENTER_LOCATION;
+                   botState = BotState.REMINDER_MENU;
                    break;
-//                case "":
-//                    botState = BotState.REMINDER_MENU;
-//                    break;
                 case "/help":
                     botState = BotState.HELP_MENU;
                     break;
