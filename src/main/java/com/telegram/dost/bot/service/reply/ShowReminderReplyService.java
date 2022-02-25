@@ -11,7 +11,11 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
@@ -50,7 +54,10 @@ public class ShowReminderReplyService implements ReplyService {
             String replyReminderList = "";
             for (Reminder reminder : myReminders) {
                 if(reminder.getUserId() == userId) {
-                    replyReminderList += count + "." + " " + AESUtil.decrypt(reminder.getDescription()) + "\n";
+                    LocalDate reminderDate = reminder.getDateTime().toLocalDate();
+                    LocalTime reminderTime = reminder.getDateTime().toLocalTime();
+                    replyReminderList += count + "." + " " + AESUtil.decrypt(reminder.getDescription()) + " - "
+                            + reminderDate + " at " +reminderTime + "\n";
                     count++;
                 }
             }
