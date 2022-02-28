@@ -11,11 +11,9 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
@@ -43,7 +41,7 @@ public class ShowReminderReplyService implements ReplyService {
 
         LocalDateTime now = LocalDateTime.now();
         List<Reminder> myReminders = reminderService.getUserReminders(userId, now);
-        log.info("Got {} myReminders showing to user, myReminders.size()");
+        log.info("Got [{}] reminders showing to user", myReminders);
 
         if(myReminders.isEmpty()){
             message.setText(replyText);

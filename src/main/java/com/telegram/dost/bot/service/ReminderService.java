@@ -46,13 +46,13 @@ public class ReminderService {
 
     public void makeFinished(int reminderId){
 
-        log.info("Marking reminder {} as finished with id");
+        log.info("Marking reminder with id {} as finished ", reminderId);
         reminderRepository.makeFinished(reminderId);
     }
 
     public List<Reminder> getUserReminders(int userId, LocalDateTime now){
 
-        log.info("Getting reminders {} for userId");
+        log.info("Getting reminders with datetime after {} for userId {}", now, userId);
         return reminderRepository.findByUserIdAndIsFinished(userId, now);
     }
 }

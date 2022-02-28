@@ -13,14 +13,11 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 @Component
 public class ReminderMenuHandler implements ReplyMessageHandler {
 
-    private UserDataCache userDataCache;
 
     private ReplyService replyService;
 
     @Autowired
-    public ReminderMenuHandler(UserDataCache userDataCache,
-                               @Qualifier("reminderMenuReplyService") ReplyService replyService){
-        this.userDataCache = userDataCache;
+    public ReminderMenuHandler(@Qualifier("reminderMenuReplyService") ReplyService replyService){
         this.replyService = replyService;
     }
 

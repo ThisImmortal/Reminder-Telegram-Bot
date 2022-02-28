@@ -5,5 +5,5 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 
 public interface ReplyService {
 
-    public SendMessage getReplyMessage(Update update);
+    SendMessage getReplyMessage(Update update);
 }

@@ -1,6 +1,7 @@
 package com.telegram.dost.bot.service;
 
 import com.telegram.dost.bot.model.Reminder;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +17,9 @@ import java.util.concurrent.TimeUnit;
 
 
 @Service
+@Slf4j
 public class ScheduleService {
 
-    private final static Logger log = LoggerFactory.getLogger(ScheduleService.class);
     private AbsSender absSender;
     private ReminderService reminderService;
 
@@ -35,7 +36,7 @@ public class ScheduleService {
 
         LocalDateTime now = LocalDateTime.now();
         List<Reminder> reminders = reminderService.getReminders(now.truncatedTo(ChronoUnit.HOURS), now);
-        log.info("Got {} reminders to process, reminders.size()");
+        log.info("Got {} reminders to process", reminders.size());
 
         try {
             for (Reminder reminder : reminders) {
