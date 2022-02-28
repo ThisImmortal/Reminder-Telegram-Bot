@@ -31,4 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
-/src/main/resources/application-dev.properties
+
+### Sensitive data ###
+src/main/resources/application-dev.properties
